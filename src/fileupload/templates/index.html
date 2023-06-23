@@ -47,8 +47,9 @@
                 text-align: center;
             }
 
-            .button-container button {
-                max-width: 100%;  /* Reduce button size */
+            .button-container label, .button-container button {
+                display: inline-block;
+                max-width: 100%;  
                 margin: 25px 0;
                 color: white;
                 background-color: #274981;
@@ -56,14 +57,12 @@
                 font-size: 25px;
                 transition: all 0.3s ease;
                 cursor: pointer;
-            }
-
-            .button-container .big-button, .button-container .small-button {
                 padding: 20px;
+                text-align: center;
                 width: 100%;
             }
 
-            .button-container button:hover {
+            .button-container label:hover, .button-container button:hover {
                 background-color: #274981;
                 transform: scale(1.1);
             }
@@ -82,15 +81,14 @@
                 </div>
                 <div class="button-container">
                     <input type="file" name="files" multiple id="file">
-                    <label for="file">
-                        <button type="button" class="big-button">Выберите файл</button>
-                    </label>
+                    <label for="file" class="big-button">Выберите файл</label>
                     <button type="submit" class="small-button">Отправить</button>
                 </div>
             </form>
         </div>
     </body>
 </html>
+
 
 
 
