@@ -1,16 +1,77 @@
-<!doctype html>
+{% load static %}
+
+<!DOCTYPE html>
 <html>
-<head>
-    <title>Document</title>
-</head>
-<body>
-    <form method="POST" enctype="multipart/form-data">
-        {% csrf_token %}
+    <head>
+        <title>Upload File</title>
+        <style>
+            body {
+                background-image: url('{% static "background.jpg" %}');
+                background-repeat: no-repeat;
+                background-attachment: fixed;
+                background-size: cover;
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100vh;
+                margin: 0;
+            }
 
-        <input type="file" name="file">
-                <br>
-        <input type="submit">
+            .button-container {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                width: 300px;
+                text-align: center;
+            }
 
-    </form>
-</body>
+            .button-container button {
+                width: 100%;
+                margin: 25px 0;
+                color: white;
+                background-color: #274981;
+                border: none;
+                font-size: 25px;
+                transition: font-size 0.3s ease; /* This will animate the font size change */
+                cursor: pointer;
+            }
+
+            .button-container .big-button {
+                padding: 40px;
+            }
+
+            .button-container .small-button {
+                padding: 28px;
+            }
+
+            .button-container button:hover {
+                background-color: #274981;
+                font-size: 28px;
+            }
+
+            #file {
+                display: none;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="button-container">
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <input type="file" name="file" id="file">
+                <label for="file">
+                    <button type="button" class="big-button">Выберите файл</button>
+                </label>
+                <button type="submit" class="small-button">Отправить</button>
+            </form>
+        </div>
+        <script>
+            document.querySelector("label[for='file']").addEventListener('click', function (e) {
+                e.preventDefault();
+                document.getElementById('file').click();
+            });
+        </script>
+    </body>
 </html>
+
+
