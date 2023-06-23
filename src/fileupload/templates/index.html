@@ -21,20 +21,34 @@
                 display: flex;
                 flex-direction: column;
                 align-items: center;
-                width: 40%;
+                width: 50%;
                 margin: auto;
+            }
+
+            .search-field {
+                display: flex;
+                justify-content: center;
+                width: 100%;
+                margin-bottom: 30px;
+            }
+
+            .search-field input[name="search_query"] {
+                width: 100%;
+                padding: 10px;
+                font-size: 25px;
+                text-align: center; 
             }
 
             .button-container {
                 display: flex;
                 flex-direction: column;
                 align-items: center;
-                width: 100%;
+                width: 100%; 
                 text-align: center;
             }
 
             .button-container button {
-                width: 100%;
+                max-width: 100%;  /* Reduce button size */
                 margin: 25px 0;
                 color: white;
                 background-color: #274981;
@@ -44,12 +58,9 @@
                 cursor: pointer;
             }
 
-            .button-container .big-button {
-                padding: 40px;
-            }
-
-            .button-container .small-button {
-                padding: 28px;
+            .button-container .big-button, .button-container .small-button {
+                padding: 20px;
+                width: 100%;
             }
 
             .button-container button:hover {
@@ -60,46 +71,29 @@
             #file {
                 display: none;
             }
-
-            .search-field {
-                display: flex;
-                justify-content: center;
-                width: 100%;
-                margin-bottom: 20px;
-            }
-
-            .search-field input[name="search_query"] {
-                width: 100%;
-                padding: 10px;
-                font-size: 25px;
-                text-align: center; 
-            }
         </style>
     </head>
     <body>
         <div class="global-container">
-            <div class="button-container">
-                <form method="post" enctype="multipart/form-data">
-                    {% csrf_token %}
-                    <div class="search-field">
-                        <input type="text" name="search_query" placeholder="Введите название ОКС для анализа документации" required>
-                    </div>
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <div class="search-field">
+                    <input type="text" name="search_query" placeholder="Введите название ОКС" required>
+                </div>
+                <div class="button-container">
                     <input type="file" name="files" multiple id="file">
                     <label for="file">
                         <button type="button" class="big-button">Выберите файл</button>
                     </label>
                     <button type="submit" class="small-button">Отправить</button>
-                </form>
-            </div>
+                </div>
+            </form>
         </div>
-        <script>
-            document.querySelector("label[for='file']").addEventListener('click', function (e) {
-                e.preventDefault();
-                document.getElementById('file').click();
-            });
-        </script>
     </body>
 </html>
+
+
+
 
 
 
