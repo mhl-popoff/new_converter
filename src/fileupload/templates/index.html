@@ -17,11 +17,19 @@
                 margin: 0;
             }
 
+            .global-container {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                width: 40%;
+                margin: auto;
+            }
+
             .button-container {
                 display: flex;
                 flex-direction: column;
                 align-items: center;
-                width: 300px;
+                width: 100%;
                 text-align: center;
             }
 
@@ -32,7 +40,7 @@
                 background-color: #274981;
                 border: none;
                 font-size: 25px;
-                transition: font-size 0.3s ease; /* This will animate the font size change */
+                transition: all 0.3s ease;
                 cursor: pointer;
             }
 
@@ -46,24 +54,43 @@
 
             .button-container button:hover {
                 background-color: #274981;
-                font-size: 28px;
+                transform: scale(1.1);
             }
 
             #file {
                 display: none;
             }
+
+            .search-field {
+                display: flex;
+                justify-content: center;
+                width: 100%;
+                margin-bottom: 20px;
+            }
+
+            .search-field input[name="search_query"] {
+                width: 100%;
+                padding: 10px;
+                font-size: 25px;
+                text-align: center; 
+            }
         </style>
     </head>
     <body>
-        <div class="button-container">
-            <form method="post" enctype="multipart/form-data">
-                {% csrf_token %}
-                <input type="file" name="file" id="file">
-                <label for="file">
-                    <button type="button" class="big-button">Выберите файл</button>
-                </label>
-                <button type="submit" class="small-button">Отправить</button>
-            </form>
+        <div class="global-container">
+            <div class="button-container">
+                <form method="post" enctype="multipart/form-data">
+                    {% csrf_token %}
+                    <div class="search-field">
+                        <input type="text" name="search_query" placeholder="Введите название ОКС для анализа документации" required>
+                    </div>
+                    <input type="file" name="files" multiple id="file">
+                    <label for="file">
+                        <button type="button" class="big-button">Выберите файл</button>
+                    </label>
+                    <button type="submit" class="small-button">Отправить</button>
+                </form>
+            </div>
         </div>
         <script>
             document.querySelector("label[for='file']").addEventListener('click', function (e) {
@@ -73,5 +100,7 @@
         </script>
     </body>
 </html>
+
+
 
 
