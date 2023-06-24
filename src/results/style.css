@@ -1,0 +1,20 @@
+/* style.css */
+
+body {
+  background-image: url("../../static/background_results.jpg");
+  background-size: cover;
+  font-size: 1.3em;
+  font-weight: 500;
+}
+
+h1 {
+  color: #000000;
+}
+
+p {
+  color: #000000;
+}
+
+li {
+  color: #000000;
+} 
