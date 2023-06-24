@@ -1,4 +1,5 @@
 import os
+from django.conf import settings
 import time
 from django.shortcuts import render, redirect
 from .models import FilesUpload
@@ -10,6 +11,8 @@ def home(request):
         
         # Удаление всех файлов в директории results перед загрузкой новых.
         for filename in os.listdir(results_dir):
+            if filename.endswith(".css"):
+                continue
             file_path = os.path.join(results_dir, filename)
             try:
                 if os.path.isfile(file_path):
@@ -29,6 +32,10 @@ def home(request):
 
 
 def results(request):
-    results_dir = "results"
-    files = os.listdir(results_dir)
-    return render(request, 'results.html', {'files': files})
+    media_files = os.listdir(settings.MEDIA_ROOT)
+    results_files = os.listdir(settings.RESULTS_ROOT)
+    context = {
+        'media_files': media_files,
+        'results_files': results_files,
+    }
+    return render(request, 'results.html', context)

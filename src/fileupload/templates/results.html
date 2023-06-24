@@ -35,18 +35,21 @@
 </head>
 <body>
     <h1>Проверенные файлы</h1>
-    {% if files %}
-        <ul>
-            {% for file in files %}
+    {% if results_files %}
+    <ul>
+        {% for file in results_files %}
+            {% if file|slice:"-5:" == '.html' %}
                 <li>
                     {{ file }}
                     <a class="details-btn" href="/results/{{ file }}" target="_blank">Подробнее...</a>
                 </li>
-            {% endfor %}
-        </ul>
+            {% endif %}
+        {% endfor %}
+    </ul>
     {% else %}
         <p>Файлы не найдены.</p>
     {% endif %}
+
     <a href="/" class="upload-btn">Загрузить новые файлы</a>
 </body>
 </html>
