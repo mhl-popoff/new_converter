@@ -31,7 +31,4 @@ def home(request):
 def results(request):
     results_dir = "results"
     files = os.listdir(results_dir)
-    context = {
-        'files': files,
-    }
-    return render(request, 'results.html', context)
+    return render(request, 'results.html', {'files': files})

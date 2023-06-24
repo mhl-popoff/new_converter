@@ -1,18 +1,34 @@
+{% load static %}
+
 <!DOCTYPE html>
 <html>
 <head>
-    <title>Результаты:</title>
+    <title>Результаты</title>
+    <style>
+        body {
+            background-image: url("{% static 'background.jpg' %}");
+            background-size: cover;
+            font-size: 1.5em;
+        }
+        .details-btn {
+            margin-left: 10px;
+        }
+    </style>
 </head>
 <body>
-    <h1>Results</h1>
+    <h1>Проверенные файлы</h1>
     {% if files %}
         <ul>
             {% for file in files %}
-                <li>{{ file }}</li>
+                <li>
+                    {{ file }}
+                    <a class="details-btn" href="/results/{{ file }}" target="_blank">Отчёт</a>
+                </li>
             {% endfor %}
         </ul>
     {% else %}
-        <p>No results found.</p>
+        <p>Файлы не найдены.</p>
     {% endif %}
 </body>
 </html>
+
