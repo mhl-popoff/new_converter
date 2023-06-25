@@ -5,6 +5,7 @@ from django.shortcuts import render, redirect
 from .models import FilesUpload
 from .tasks import process_pdf_task
 
+
 def home(request):
     if request.method == "POST":
         results_dir = "results"
