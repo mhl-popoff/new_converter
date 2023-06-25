@@ -7,6 +7,7 @@ from .tasks import process_pdf_task
 
 
 def home(request):
+    """Загрузка и сохранение файлов для обработки."""
     if request.method == "POST":
         results_dir = "results"
         
@@ -39,6 +40,7 @@ def home(request):
 
 
 def results(request):
+    """Отображение результатов обработки + гиперссылки на файлы."""
     media_files = os.listdir(settings.MEDIA_ROOT)
     results_files = os.listdir(settings.RESULTS_ROOT)
     context = {

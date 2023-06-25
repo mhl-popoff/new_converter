@@ -2,16 +2,14 @@ import os
 import PyPDF2
 from celery import Celery
 from fuzzywuzzy import fuzz
-from shutil import copyfile
 
 app = Celery('tasks', broker='redis://localhost:6379/0')
 
 
 @app.task
 def process_pdf_task(pdf_document, search_query, file_name):
+    """Обработка файлов."""
     results = []
-    success_list = []  # верные нахождения наименования ОКС
-    general_list = []  # общее количество документов
 
     with open(pdf_document, 'rb') as file:
         reader = PyPDF2.PdfReader(file)
@@ -19,19 +17,12 @@ def process_pdf_task(pdf_document, search_query, file_name):
             text = page.extract_text()
             text = text.replace('\n', ' ').replace('\t', ' ').replace('  ', ' ')
             match_score = fuzz.partial_ratio(search_query.lower(), text.lower())
-            count_success = 0
-            count_general = 0
 
             if match_score >= 81:
                 results.append((page_number, match_score, 'Допустимо'))
-                count_success += 1
-                count_general += 1
+
             elif 81 > match_score >= 65:
                 results.append((page_number, match_score, 'Внимание, необходимо проверить!'))
-                count_general += 1
-
-            success_list.append(count_success)
-            general_list.append(count_general)
 
     results_dir = "results"
     if not os.path.exists(results_dir):
