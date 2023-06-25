@@ -33,7 +33,7 @@ def home(request):
             process_pdf_task.delay(file_path, search_query, file.name)
 
         # Задержка, чтобы для дать Celery время на обработку файлов
-        time.sleep(10)
+        time.sleep(7)
         return redirect('results')
 
     return render(request, "index.html")
