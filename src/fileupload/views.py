@@ -20,15 +20,21 @@ def home(request):
                     os.unlink(file_path)
             except Exception as e:
                 print(f'Failed to delete {file_path}. Reason: {e}')
+
         files = request.FILES.getlist("files")
         search_query = request.POST.get('search_query')
+
+        # Обработка каждого загруженного файла в отдельном задании Celery
         for file in files:
             document = FilesUpload.objects.create(file=file)
             document.save()
             file_path = document.file.path
             process_pdf_task.delay(file_path, search_query, file.name)
+
+        # Задержка, чтобы для дать Celery время на обработку файлов
         time.sleep(10)
         return redirect('results')
+
     return render(request, "index.html")
 
 

@@ -40,7 +40,10 @@
         {% for file in results_files %}
             {% if file|slice:"-5:" == '.html' %}
                 <li>
-                    {{ file }}
+                    {% with shortened_name=file|slice:"0:40" %}
+                        {{ shortened_name }}{% if file|length > 40 %}...{% endif %}
+                    {% endwith %}
+
                     <a class="details-btn" href="/results/{{ file }}" target="_blank">Подробнее...</a>
                 </li>
             {% endif %}
